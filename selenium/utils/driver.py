@@ -23,21 +23,22 @@ def automate(url, path, cookie_string):
     
     options = webdriver.ChromeOptions()
     options.add_argument("--start-minimized")
-    options.add_argument('--headless')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--disable-gpu')
+    # options.add_argument('--headless')
+    # options.add_argument('--no-sandbox')
+    # options.add_argument('--disable-dev-shm-usage')
+    # options.add_argument('--disable-gpu')
     
     # Use this when testing on windows
-    # service = Service(f"{current_directory}/{CHROME_DRIVER_PATH}")
-    # driver = webdriver.Chrome(service=service, options=options)
-    driver = webdriver.Chrome(options=options)
+    service = Service(f"{CHROME_DRIVER_PATH}")
+    driver = webdriver.Chrome(service=service, options=options)
+    # driver = webdriver.Chrome(options=options)
     
     driver.get(url)
     
     for cookie in cookies:
             cookie.pop('expiry', None)
             driver.add_cookie(cookie)
+            
     time.sleep(5)
     driver.refresh()
     driver.implicitly_wait(10)
@@ -48,6 +49,6 @@ def automate(url, path, cookie_string):
     page_html = driver.page_source
     
     # time.sleep(10)
-    driver.quit()
+    # driver.quit()
     
     return page_html

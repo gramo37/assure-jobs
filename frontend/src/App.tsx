@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const URL = "http://66.29.133.117:8000/automate"
-// const URL = "http://localhost:8000/automate"
+// const URL = "http://66.29.133.117:8000/automate"
+const URL = "http://localhost:8000/automate"
 
 const App = () => {
   const [url, setUrl] = useState<string>("");

@@ -29,7 +29,7 @@ async def ping():
     return {"message": "Hello World!"}
 
 @app.post("/automate/")
-async def automate(item: Item):
+async def automate_route(item: Item):
     url = item.url
     path = item.path
     cookie_string = item.cookie_string
