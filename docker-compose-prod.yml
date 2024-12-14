@@ -1,12 +1,17 @@
 version: '3.8'
 
 services:
-  selenium:
-    image: gramo37/assure-jobs-selenium
+  # selenium:
+  #   image: gramo37/assure-jobs-selenium
+  #   ports:
+  #     - "8000:8000"
+
+  # frontend:
+  #   image: gramo37/assure-jobs-frontend
+  #   ports:
+  #     - "5173:80"
+
+  qas:
+    image: gramo37/assure-jobs-qas
     ports:
       - "8000:8000"
-
-  frontend:
-    image: gramo37/assure-jobs-frontend
-    ports:
-      - "5173:80"

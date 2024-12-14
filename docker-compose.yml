@@ -1,13 +1,24 @@
 version: '3.8'
 
 services:
-  selenium:
-    build: ./selenium
+  # selenium:
+  #   build: ./selenium
+  #   ports:
+  #     - "8000:8000"
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5173:80"
+  qas:
+    build:
+      context: ./qas
+      dockerfile: Dockerfile
+    container_name: fastapi-qa-service
     ports:
       - "8000:8000"
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "5173:80"
+    environment:
+      - MODEL_NAME=${MODEL_NAME}
+      - MODEL_TYPE=${MODEL_TYPE}
+      - USE_CUDA=${USE_CUDA}

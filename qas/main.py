@@ -3,8 +3,21 @@ from pydantic import BaseModel
 from typing import List
 from simpletransformers.question_answering import QuestionAnsweringModel
 import time
+import os
+from dotenv import load_dotenv
 
 app = FastAPI()
+load_dotenv()
+
+# Load environment variables
+MODEL_NAME = os.getenv("MODEL_NAME", "distilbert-base-cased-distilled-squad")  # Default value if not set
+MODEL_TYPE = os.getenv("MODEL_TYPE", "distilbert")  # Default value if not set
+USE_CUDA = os.getenv("USE_CUDA", "False").lower() == "true"  # Convert string to boolean
+
+print("-------------------------Loading ENV variables-------------------------")
+print("Model Name", MODEL_NAME)
+print("Model Type", MODEL_TYPE)
+print("USE CUDA", USE_CUDA)
 
 class Question(BaseModel):
     question: str
@@ -21,9 +34,9 @@ class QAResponse(BaseModel):
 
 # Load the pre-trained QA model globally
 model = QuestionAnsweringModel(
-    model_type="distilbert", 
-    model_name="distilbert-base-cased-distilled-squad", 
-    use_cuda=False  # Set to True if you have a GPU
+    model_type=MODEL_TYPE, 
+    model_name=MODEL_NAME, 
+    use_cuda=USE_CUDA  # Set to True if you have a GPU
 )
 
 # Sample Request
