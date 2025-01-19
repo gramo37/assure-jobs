@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from utils.driver import automate
+from selenium2.utils.driver import automate
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()

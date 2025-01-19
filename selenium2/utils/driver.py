@@ -1,10 +1,10 @@
 import time
 import os
-from utils.helpers import extract_domain
+from selenium2.utils.helpers import extract_domain
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from constants import CHROME_DRIVER_PATH
+from selenium2.constants import CHROME_DRIVER_PATH
 
 def automate(url, path, cookie_string):
     DOMAIN = extract_domain(url)

@@ -15,3 +15,7 @@ services:
     image: gramo37/assure-jobs-qas
     ports:
       - "8000:8000"
+    environment:
+      - MODEL_NAME=${MODEL_NAME}
+      - MODEL_TYPE=${MODEL_TYPE}
+      - USE_CUDA=${USE_CUDA}
