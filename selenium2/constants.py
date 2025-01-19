@@ -1,1 +1,1 @@
-CHROME_DRIVER_PATH = "./chromedriver.exe"
+CHROME_DRIVER_PATH = "chromedriver.exe"

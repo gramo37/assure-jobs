@@ -6,6 +6,10 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium2.constants import CHROME_DRIVER_PATH
 
+# Get the current directory and set the ChromeDriver path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+chrome_driver_path = os.path.join(current_dir, CHROME_DRIVER_PATH)
+
 def automate(url, path, cookie_string):
     DOMAIN = extract_domain(url)
     cookies = []
@@ -29,26 +33,33 @@ def automate(url, path, cookie_string):
     # options.add_argument('--disable-gpu')
     
     # Use this when testing on windows
-    service = Service(f"{CHROME_DRIVER_PATH}")
-    driver = webdriver.Chrome(service=service, options=options)
-    # driver = webdriver.Chrome(options=options)
+    service = Service(f"{chrome_driver_path}")
+    try:
+        driver = webdriver.Chrome(service=service, options=options)
+        # driver = webdriver.Chrome(options=options)
     
-    driver.get(url)
+        driver.get(url)
     
-    for cookie in cookies:
+        for cookie in cookies:
             cookie.pop('expiry', None)
             driver.add_cookie(cookie)
             
-    time.sleep(5)
-    driver.refresh()
-    driver.implicitly_wait(10)
+        time.sleep(5)
+        driver.refresh()
+        driver.implicitly_wait(10)
     
-    driver.get(f"{url}{path}")
+        driver.get(f"{url}{path}")
     
-    # Add automation for easy apply
-    page_html = driver.page_source
+        # Add automation for easy apply
+        page_html = driver.page_source
     
-    # time.sleep(10)
-    # driver.quit()
+        return page_html
+    except Exception as e:
+        print(f"An error occurred during automation: {e}")
+        return None
+    finally:
+        try:
+            driver.quit()
+        except Exception:
+            pass
     
-    return page_html
